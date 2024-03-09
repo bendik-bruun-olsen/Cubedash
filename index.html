@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./script.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="./images/CubeDash.png">
+    <link rel="stylesheet" href="./style.css">
+    <title>CubeDash</title>
+</head>
+<body>
+    <main>
+        <div id="wrapper">
+            <div id="player-box"></div>
+            <div id="menu">
+                <h2>Difficulty:</h2>
+                <form id="diff-btn-form">
+                    <input
+                    name="diff-btns"
+                    type="radio"
+                    id="btn-easy"
+                    value="easy"
+                    >
+                    <label for="btn-easy">Easy</label>
+                    <input
+                    name="diff-btns"
+                    type="radio"
+                    id="btn-medium"
+                    value="medium"
+                    checked
+                    >
+                    <label for="btn-medium">Medium</label>
+                    <input
+                    name="diff-btns"
+                    type="radio"
+                    id="btn-hard"
+                    value="hard"
+                    >
+                    <label for="btn-hard">Hard</label>
+                </form>
+                <p id="high-score">High Score: 0</p>
+                <input type="button" id="start-btn" value="Start">
+            </div>
+            <div id="container">
+            </div>
+        </div>
+        <div id="score-container">
+            <p id="score">Score: 0</p>
+        </div>
+    </main>
+</body>
+</html>
