@@ -64,7 +64,7 @@ let fallSpawnRate = 200;
 diffBtnForm.addEventListener("change", (e) => {
     switch(e.target.value) {
         case "easy":
-            fallSpawnRate = 300;
+            fallSpawnRate = 250;
             fallSpeed = 5
             break;
         case "medium":
@@ -72,7 +72,7 @@ diffBtnForm.addEventListener("change", (e) => {
             fallSpeed =  10;
             break
         case "hard":
-            fallSpawnRate = 100;
+            fallSpawnRate = 150;
             fallSpeed = 15;
             break
     };
@@ -205,6 +205,6 @@ function gameOver() {
     menuWindow.style.opacity = "100";
     isGameOver = true;
     for (let key in movement) movement[key] = false;
-    clearInterval(spawnFallBoxInterval);
+    // clearInterval(spawnFallBoxInterval);
     updateHighScore();
 };
