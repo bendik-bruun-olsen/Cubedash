@@ -119,7 +119,7 @@ function startGame() {
             else clearInterval(spawnFallBoxInterval);
         }, fallSpawnRate)
 
-        movePlayerInterval();
+        requestAnimationFrame(movePlayer);
     }, 500)
 };
 
@@ -143,13 +143,14 @@ function movePlayer() {
         if (playerBoxLeft > (wrapperWidth - playerBoxWidth - playerBoxStep)) playerBox.style.left = `${container.offsetWidth - playerBoxWidth}px`;
         else playerBox.style.left = `${playerBoxLeft + playerBoxStep}px`;
     };
+    if (!isGameOver) requestAnimationFrame(movePlayer);
 };
 
-function movePlayerInterval() {
-    playerInterval = setInterval(() => {
-        movePlayer();
-    }, playerMoveInterval);
-};
+// function movePlayerInterval() {
+//     playerInterval = setInterval(() => {
+//         movePlayer();
+//     }, playerMoveInterval);
+// };
 
 function spawnFallingBoxes () {
     const fallingBox = document.createElement("div");
@@ -161,20 +162,35 @@ function spawnFallingBoxes () {
     fallingBox.style.top = `${0 - fallingBox.offsetHeight}px`
     fallingBox.style.left = `${Math.floor(Math.random() * (wrapper.offsetWidth - fallingBox.offsetWidth))}px`
 
-    const fallBoxInterval = setInterval(() => {
-        if (fallingBox.offsetTop < wrapper.offsetHeight) {
-            if (checkCollision(fallingBox)) gameOver();
-            else fallingBox.style.top = `${fallingBox.offsetTop + fallSpeed}px`
-        }
-        else {
-            clearInterval(fallBoxInterval);
-            fallingBox.remove();
-            updateScore();
-        }
-    }, fallSpeedUpdateInterval); 
+    // const fallBoxInterval = setInterval(() => {
+    //     if (fallingBox.offsetTop < wrapper.offsetHeight) {
+    //         if (checkCollision(fallingBox)) gameOver();
+    //         else fallingBox.style.top = `${fallingBox.offsetTop + fallSpeed}px`
+    //     }
+    //     else {
+    //         clearInterval(fallBoxInterval);
+    //         fallingBox.remove();
+    //         updateScore();
+    //     }
+    // }, fallSpeedUpdateInterval); 
 
-    intervals.push(fallBoxInterval)
+    // intervals.push(fallBoxInterval)
+
+    if (!isGameOver) requestAnimationFrame(handleFallingBox(fallingBox));
 };
+
+function handleFallingBox(fallingBox) {
+    if (fallingBox.offsetTop < wrapper.offsetHeight) {
+        if (checkCollision(fallingBox)) gameOver();
+        else fallingBox.style.top = `${fallingBox.offsetTop + fallSpeed}px`
+    }
+    else {
+        // clearInterval(fallBoxInterval);
+        fallingBox.remove();
+        updateScore();
+    }
+    if (!isGameOver) requestAnimationFrame(handleFallingBox(fallingBox));
+}
 
 function checkCollision (fallingBox) {
     const checkTop = () => playerBox.offsetTop < (fallingBox.offsetTop + fallingBox.offsetHeight);
@@ -186,10 +202,10 @@ function checkCollision (fallingBox) {
     else return false;
 };
 
-function clearFallBoxIntervals() {
-    intervals.forEach((fallBoxInterval) => clearInterval(fallBoxInterval))
-    intervals = [];
-};
+// function clearFallBoxIntervals() {
+//     intervals.forEach((fallBoxInterval) => clearInterval(fallBoxInterval))
+//     intervals = [];
+// };
 
 function updateScore() {
     scoreCounter += 1;
@@ -218,7 +234,8 @@ function gameOver() {
     menuWindow.style.opacity = "100";
     isGameOver = true;
     for (let key in movement) movement[key] = false;
-    clearFallBoxIntervals();
-    clearInterval(playerInterval);
+    clearInterval(spawnFallBoxInterval);
+    // clearFallBoxIntervals();
+    // clearInterval(playerInterval);
     updateHighScore();
 };
