@@ -32,14 +32,12 @@ const keyActions = {
     "ArrowRight": "moveRight",
 };
 
-
 // Dimension settings (Adjustable)
 const playAreaheightRatio = 4;     // 4 == 25%
 playerBox.style.width = "30px";
 playerBox.style.height = "30px";
 wrapper.style.width = "600px";
 wrapper.style.height = "800px";
-//
 
 const wrapperHeight = wrapper.offsetHeight
 const wrapperWidth = wrapper.offsetWidth
@@ -62,7 +60,6 @@ const playerMoveInterval = 10;
 let fallSpeed = 10;
 const fallSpeedUpdateInterval = 10;
 let fallSpawnRate = 200;
-//
 
 diffBtnForm.addEventListener("change", (e) => {
     switch(e.target.value) {
@@ -87,13 +84,6 @@ function initPlayerPos() {
 };
 
 startBtn.addEventListener("click", startGame);
-// window.addEventListener("keypress", (e) => {
-//     if (e.key === " " && isGameOver) {
-//         gameOver();
-//         startGame();
-//         console.log(e)
-//     }
-// });
 
 container.addEventListener("click", (event) => {
     playerBox.style.top = `${event.offsetY - (playerBoxHeight / 2) + (wrapperHeight - containerHeight)}px`;
