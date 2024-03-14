@@ -33,7 +33,7 @@ const keyActions = {
 };
 
 // Dimension settings (Adjustable)
-const playAreaheightRatio = 4;     // 4 == 25%
+const playAreaHeightRatio = 4;     // 4 == 25%
 playerBox.style.width = "30px";
 playerBox.style.height = "30px";
 wrapper.style.width = "600px";
@@ -42,7 +42,7 @@ wrapper.style.height = "800px";
 const wrapperHeight = wrapper.offsetHeight
 const wrapperWidth = wrapper.offsetWidth
 
-container.style.height = `${wrapperHeight / playAreaheightRatio}px`;
+container.style.height = `${wrapperHeight / playAreaHeightRatio}px`;
 container.style.width = `${wrapperWidth}px`;
 const containerHeight = container.offsetHeight;
 const difference = wrapperHeight - containerHeight;
@@ -84,11 +84,6 @@ function initPlayerPos() {
 };
 
 startBtn.addEventListener("click", startGame);
-
-container.addEventListener("click", (event) => {
-    playerBox.style.top = `${event.offsetY - (playerBoxHeight / 2) + (wrapperHeight - containerHeight)}px`;
-    playerBox.style.left = `${event.offsetX - (playerBoxWidth / 2)}px`;
-})
 
 function handleEventKeys(event) {
     event.preventDefault();
@@ -146,12 +141,6 @@ function movePlayer() {
     if (!isGameOver) requestAnimationFrame(movePlayer);
 };
 
-// function movePlayerInterval() {
-//     playerInterval = setInterval(() => {
-//         movePlayer();
-//     }, playerMoveInterval);
-// };
-
 function spawnFallingBoxes () {
     const fallingBox = document.createElement("div");
 
@@ -162,34 +151,21 @@ function spawnFallingBoxes () {
     fallingBox.style.top = `${0 - fallingBox.offsetHeight}px`
     fallingBox.style.left = `${Math.floor(Math.random() * (wrapper.offsetWidth - fallingBox.offsetWidth))}px`
 
-    // const fallBoxInterval = setInterval(() => {
-    //     if (fallingBox.offsetTop < wrapper.offsetHeight) {
-    //         if (checkCollision(fallingBox)) gameOver();
-    //         else fallingBox.style.top = `${fallingBox.offsetTop + fallSpeed}px`
-    //     }
-    //     else {
-    //         clearInterval(fallBoxInterval);
-    //         fallingBox.remove();
-    //         updateScore();
-    //     }
-    // }, fallSpeedUpdateInterval); 
-
-    // intervals.push(fallBoxInterval)
-
-    if (!isGameOver) requestAnimationFrame(handleFallingBox(fallingBox));
+    if (!isGameOver) requestAnimationFrame(() => moveFallingBox(fallingBox));
 };
 
-function handleFallingBox(fallingBox) {
+function moveFallingBox(fallingBox) {
     if (fallingBox.offsetTop < wrapper.offsetHeight) {
         if (checkCollision(fallingBox)) gameOver();
-        else fallingBox.style.top = `${fallingBox.offsetTop + fallSpeed}px`
+        else if (!isGameOver) {
+            fallingBox.style.top = `${fallingBox.offsetTop + fallSpeed}px`
+            requestAnimationFrame(() => moveFallingBox(fallingBox));
+        }
     }
     else {
-        // clearInterval(fallBoxInterval);
         fallingBox.remove();
         updateScore();
     }
-    if (!isGameOver) requestAnimationFrame(handleFallingBox(fallingBox));
 }
 
 function checkCollision (fallingBox) {
@@ -201,11 +177,6 @@ function checkCollision (fallingBox) {
     if (checkTop() && checkBottom() && checkLeft() && checkRight()) return true;
     else return false;
 };
-
-// function clearFallBoxIntervals() {
-//     intervals.forEach((fallBoxInterval) => clearInterval(fallBoxInterval))
-//     intervals = [];
-// };
 
 function updateScore() {
     scoreCounter += 1;
@@ -235,7 +206,5 @@ function gameOver() {
     isGameOver = true;
     for (let key in movement) movement[key] = false;
     clearInterval(spawnFallBoxInterval);
-    // clearFallBoxIntervals();
-    // clearInterval(playerInterval);
     updateHighScore();
 };
