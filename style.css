@@ -103,6 +103,10 @@ h2 {
     display: none;
 }
 
+#diff-btn-form input[type="radio"]:disabled {
+    cursor: default;
+}
+
 #diff-btn-form label {
     padding: 4px 8px;
     background-color: rgb(78, 78, 78);

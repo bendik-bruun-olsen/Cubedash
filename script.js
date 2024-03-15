@@ -6,6 +6,7 @@ const score = document.getElementById("score");
 const highScoreContent = document.getElementById("high-score");
 const menuWindow = document.getElementById("menu");
 const diffBtnForm = document.getElementById("diff-btn-form");
+const diffButtons = diffBtnForm.querySelectorAll("input[type=radio]");
 
 let intervals = [];
 let playerInterval;
@@ -96,11 +97,16 @@ window.addEventListener("keydown", handleEventKeys);
 window.addEventListener("keyup", handleEventKeys);
 
 function startGame() {
-    startBtn.removeEventListener("click", startGame);
-    startBtn.style.cursor = "default";
+    wrapper.style.cursor = "none";
+    startBtn.style.cursor = "none";
+    diffButtons.forEach(btn => btn.style.cursor = "none");
+    
     menuWindow.classList.remove("fadeIn")
     menuWindow.classList.add("fadeOut");
     menuWindow.style.opacity = "0"
+    
+    startBtn.disabled = true;
+    diffButtons.forEach(button => button.disabled = true);
 
     scoreCounter = 0;
     score.textContent = `Score: 0`;
@@ -203,13 +209,19 @@ function removePreviousBoxes() {
 };
 
 function gameOver() {
-    startBtn.addEventListener("click", startGame);
+    wrapper.style.cursor = "default";
+    startBtn.style.cursor = "pointer";
+    diffButtons.forEach(btn => btn.style.cursor = "pointer");
+
     menuWindow.classList.remove("fadeOut");
     menuWindow.classList.add("fadeIn");
     menuWindow.style.opacity = "100";
-    startBtn.style.cursor = "pointer";
+
+    startBtn.disabled = false;
+    diffButtons.forEach(button => button.disabled = false);
+
     isGameOver = true;
     for (let key in movement) movement[key] = false;
-    // clearInterval(spawnFallBoxInterval);
+    
     updateHighScore();
 };
