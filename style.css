@@ -45,7 +45,7 @@ h2 {
 
 #wrapper {
     position: relative;
-    border: 3px solid rgb(75, 75, 75);
+    outline: 3px solid rgb(75, 75, 75);
     background-color: rgb(83, 83, 83);
     display: flex;
     align-items: flex-end;
@@ -122,6 +122,7 @@ h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
     cursor: pointer;
+    outline: none;
 }
 
 #start-btn:hover {

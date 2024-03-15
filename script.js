@@ -96,6 +96,8 @@ window.addEventListener("keydown", handleEventKeys);
 window.addEventListener("keyup", handleEventKeys);
 
 function startGame() {
+    startBtn.removeEventListener("click", startGame);
+    startBtn.style.cursor = "default";
     menuWindow.classList.remove("fadeIn")
     menuWindow.classList.add("fadeOut");
     menuWindow.style.opacity = "0"
@@ -201,9 +203,11 @@ function removePreviousBoxes() {
 };
 
 function gameOver() {
+    startBtn.addEventListener("click", startGame);
     menuWindow.classList.remove("fadeOut");
     menuWindow.classList.add("fadeIn");
     menuWindow.style.opacity = "100";
+    startBtn.style.cursor = "pointer";
     isGameOver = true;
     for (let key in movement) movement[key] = false;
     // clearInterval(spawnFallBoxInterval);
