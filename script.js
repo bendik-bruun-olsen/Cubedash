@@ -38,6 +38,7 @@ playerBox.style.width = "30px";
 playerBox.style.height = "30px";
 wrapper.style.width = "600px";
 wrapper.style.height = "800px";
+//
 
 const wrapperHeight = wrapper.offsetHeight
 const wrapperWidth = wrapper.offsetWidth
