@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+:root {
+    --dark-blue: #01386a;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -36,7 +40,7 @@ h2 {
 #score {
     color: white;
     font-size: 1.2rem;
-    /* z-index: 1; */
+    /* z-index: 2; */
     position: relative;
     top: -1.9rem;
 }
@@ -48,7 +52,7 @@ h2 {
 
 #wrapper {
     position: relative;
-    outline: 3px solid rgb(75, 75, 75);
+    /* outline: 3px solid rgba(1, 55, 106, 0.6); */
     background-color: rgb(83, 83, 83);
     display: flex;
     align-items: flex-end;
@@ -56,7 +60,7 @@ h2 {
     min-height: 300px;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 #container {
@@ -72,7 +76,7 @@ h2 {
     flex-direction: column;
     position: absolute;
     align-items: center;
-    background-color: #01386a;
+    background-color: var(--dark-blue);
     padding: 10px 5px 5px 5px;
     border-radius: 10px;
     z-index: 1;
@@ -109,10 +113,23 @@ h2 {
 }
 
 #diff-btn-form input[type="radio"]:checked + label {
-    background-color: orange;
+    /* background-color: orange; */
     color: white;
     cursor: default;
     transition: background-color 0.3s;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+#btn-easy:checked + label {
+    background-color: green;
+}
+
+#btn-medium:checked + label {
+    background-color: orange;
+}
+
+#btn-hard:checked + label {
+    background-color: red;
 }
 
 #start-btn {
@@ -127,11 +144,17 @@ h2 {
     font-weight: 500;
     cursor: pointer;
     outline: none;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.2s ease-out;
 }
 
 #start-btn:hover {
-    box-shadow: 0 0 10px green;
-    transition: box-shadow 0.3s ease-out;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.1);
+    transition: box-shadow 0.2s ease-out;
+}
+
+#start-btn:active {
+    background: linear-gradient(to top, rgb(0, 112, 0), rgb(0, 136, 0));
 }
 
 .fadeOut {
