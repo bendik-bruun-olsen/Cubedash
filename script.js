@@ -8,8 +8,8 @@ const menuWindow = document.getElementById("menu");
 const diffBtnForm = document.getElementById("diff-btn-form");
 const diffButtons = diffBtnForm.querySelectorAll("input[type=radio]");
 
-let intervals = [];
-let playerInterval;
+let startTImeout;
+let spawnFallBoxInterval;
 let isGameOver = false;
 let scoreCounter = 0;
 let highScore = 0;
@@ -85,10 +85,22 @@ function initPlayerPos() {
     playerBox.style.left = `${(wrapperWidth / 2) - (playerBoxWidth / 2)}px`;
 };
 
-startBtn.addEventListener("click", startGame);
+startBtn.addEventListener("click", () => {
+    hideMenu(true);
+    disableMenuButtons(true)
+    hideCursor(true);
+    startTImeout = setTimeout(() => {
+        startGame(); 
+    }, 500);
+});
 
 function handleEventKeys(event) {
     event.preventDefault();
+    // if (event.key === " ") {
+    //     if (!isGameOver) gameOver();
+    //     console.log("check key");
+    //     startGame();
+    // }
     if (!isGameOver) {
         movement[keyActions[event.key]] = (event.type === "keydown");
     };
@@ -97,35 +109,54 @@ window.addEventListener("keydown", handleEventKeys);
 window.addEventListener("keyup", handleEventKeys);
 
 function startGame() {
-    wrapper.style.cursor = "none";
-    startBtn.style.cursor = "none";
-    diffButtons.forEach(btn => btn.style.cursor = "none");
-    
-    menuWindow.classList.remove("fadeIn")
-    menuWindow.classList.add("fadeOut");
-    menuWindow.style.opacity = "0"
-    
-    startBtn.disabled = true;
-    diffButtons.forEach(button => button.disabled = true);
-
     scoreCounter = 0;
     score.textContent = `Score: 0`;
 
-    setTimeout(function() {
-        isGameOver = false;
-        removePreviousBoxes();
-        initPlayerPos();
-    
-        const spawnFallBoxInterval = setInterval(() => {
-            if (!(isGameOver)) {
-                spawnFallingBoxes();
-            }
-            else clearInterval(spawnFallBoxInterval);
-        }, fallSpawnRate)
+    console.log("start game");
 
-        requestAnimationFrame(movePlayer);
-    }, 500)
+    isGameOver = false;
+    removePreviousBoxes();
+    initPlayerPos();
+
+    const spawnFallBoxInterval = setInterval(() => {
+        if (!(isGameOver)) {
+            spawnFallingBoxes();
+        }
+        else clearInterval(spawnFallBoxInterval);
+    }, fallSpawnRate)
+
+    requestAnimationFrame(movePlayer);
+
 };
+
+const hideCursor = (bool) => {
+    if (bool) {
+        wrapper.style.cursor = "none";
+        startBtn.style.cursor = "none";
+        diffButtons.forEach(btn => btn.style.cursor = "none");
+    } else {
+        wrapper.style.cursor = "default";
+        startBtn.style.cursor = "pointer";
+        diffButtons.forEach(btn => btn.style.cursor = "pointer");
+    };
+}
+
+const hideMenu = (bool) => {
+    if (bool) {
+        menuWindow.classList.remove("fadeIn")
+        menuWindow.classList.add("fadeOut");
+        menuWindow.style.opacity = "0"
+    } else {
+        menuWindow.classList.remove("fadeOut");
+        menuWindow.classList.add("fadeIn");
+        menuWindow.style.opacity = "100";
+    }
+}
+
+const disableMenuButtons = (bool) => {
+    startBtn.disabled = bool;
+    diffButtons.forEach(button => button.disabled = bool);
+}
 
 function movePlayer() {
     const playerBoxTop = playerBox.offsetTop;
@@ -209,19 +240,17 @@ function removePreviousBoxes() {
 };
 
 function gameOver() {
-    wrapper.style.cursor = "default";
-    startBtn.style.cursor = "pointer";
-    diffButtons.forEach(btn => btn.style.cursor = "pointer");
+    hideMenu(false);
+    disableMenuButtons(false)
+    hideCursor(false);
 
-    menuWindow.classList.remove("fadeOut");
-    menuWindow.classList.add("fadeIn");
-    menuWindow.style.opacity = "100";
+    console.log("gameover");
 
-    startBtn.disabled = false;
-    diffButtons.forEach(button => button.disabled = false);
+    clearInterval(spawnFallBoxInterval);
+    clearTimeout(startTImeout)
 
     isGameOver = true;
     for (let key in movement) movement[key] = false;
-    
+
     updateHighScore();
 };

@@ -43,6 +43,7 @@ h2 {
     /* z-index: 2; */
     position: relative;
     top: -1.9rem;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 #score-container {
@@ -101,10 +102,6 @@ h2 {
 
 #diff-btn-form input[type="radio"] {
     display: none;
-}
-
-#diff-btn-form input[type="radio"]:disabled {
-    cursor: default;
 }
 
 #diff-btn-form label {
