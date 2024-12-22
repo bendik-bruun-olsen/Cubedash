@@ -1,6 +1,6 @@
 # Cubedash
 
-Falling Boxes is a simple, interactive browser game created using JavaScript, HTML, and CSS. The objective is to maneuver a player box to avoid falling obstacles and achieve the highest score possible. The game is designed with adjustable difficulty levels and a responsive user interface.
+Cubedash is a simple, interactive browser game created using JavaScript, HTML, and CSS. The objective is to maneuver a player box to avoid falling obstacles and achieve the highest score possible. The game is designed with adjustable difficulty levels and a responsive user interface.
 
 - [Features](#features)
 - [How to Play](#how-to-play)
