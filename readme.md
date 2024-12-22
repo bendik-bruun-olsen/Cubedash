@@ -3,6 +3,7 @@
 Falling Boxes is a simple, interactive browser game created using JavaScript, HTML, and CSS. The objective is to maneuver a player box to avoid falling obstacles and achieve the highest score possible. The game is designed with adjustable difficulty levels and a responsive user interface.
 
 - [Features](#features)
+- [How to Play](#how-to-play)
 - [How It Works](#how-it-works)
 - [Controls](#controls)
 - [Difficulty Levels](#difficulty-levels)
@@ -16,6 +17,12 @@ Falling Boxes is a simple, interactive browser game created using JavaScript, HT
 - **High Score Persistence**: Your highest score is saved using `localStorage`, so it remains even after you close and reopen the game.
 - **Customizable Settings**: Dimensions and movement speeds can be adjusted easily by modifying the game variables in the JavaScript file.
 - **Simple, Intuitive Controls**: Designed for quick and easy gameplay, perfect for casual gaming.
+
+## How to Play
+
+### Starting the Game
+
+Open [this link](https://bendik-bruun-olsen.github.io/Cubedash/) in a modern web browser to start the game.
 
 ## How It Works
 
